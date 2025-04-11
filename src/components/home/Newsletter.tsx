@@ -24,7 +24,7 @@ const Newsletter = () => {
     // Simulate API call
     setTimeout(() => {
       toast({
-        title: "Thank you for subscribing!",
+        title: "Thank you for subscribing",
         description: "You've been added to our newsletter.",
       });
       setEmail("");
@@ -33,27 +33,27 @@ const Newsletter = () => {
   };
   
   return (
-    <section className="bg-gucci-cream py-16">
+    <section className="py-24 bg-white">
       <div className="container-custom text-center">
-        <div className="max-w-xl mx-auto">
-          <h2 className="section-title mb-4">JOIN OUR NEWSLETTER</h2>
-          <p className="text-gray-600 mb-6">
-            Subscribe to receive updates, access to exclusive deals, and more.
+        <div className="max-w-md mx-auto">
+          <h2 className="text-2xl font-serif font-light mb-6 tracking-wider uppercase">Newsletter</h2>
+          <p className="text-gray-600 mb-8 font-light">
+            Subscribe to receive updates on new collections and exclusive offers.
           </p>
           
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Your email address"
-              className="flex-1 px-4 py-3 border border-gray-300 focus:outline-none focus:border-gucci-black"
+              className="px-4 py-3 border-b border-gray-300 focus:outline-none focus:border-black bg-transparent"
               required
             />
             <Button 
               type="submit" 
               disabled={isSubmitting}
-              className="bg-gucci-black text-white hover:bg-gucci-darkGray py-3 px-6"
+              className="bg-black text-white hover:bg-gray-900 py-3 uppercase tracking-wider font-light"
             >
               {isSubmitting ? "Subscribing..." : "Subscribe"}
             </Button>
