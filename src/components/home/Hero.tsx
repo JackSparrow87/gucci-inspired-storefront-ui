@@ -6,7 +6,7 @@ const Hero = () => {
     <div className="relative h-[80vh] overflow-hidden">
       <div className="absolute inset-0">
         <img 
-          src="https://media.gucci.com/content/HeroBackground_3200x1350/1697106903/Hero_Gucci-Aria_Part-III_001_Default.jpg" 
+          src="https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=2071&auto=format&fit=crop" 
           alt="Luxify Fashion"
           className="w-full h-full object-cover object-center"
         />

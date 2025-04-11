@@ -6,25 +6,25 @@ const FeaturedCategories = () => {
     {
       id: "women",
       name: "Women",
-      image: "https://media.gucci.com/content/DarkGray_CategoryDoubleCard_Standard_926x1112/1673444110/CategoryDoubleCard_Gucci-Cruise-23_Women_001_Default.jpg",
+      image: "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?q=80&w=1974&auto=format&fit=crop",
       link: "/category/women"
     },
     {
       id: "men",
       name: "Men",
-      image: "https://media.gucci.com/content/DarkGray_CategoryDoubleCard_Standard_926x1112/1673444110/CategoryDoubleCard_Gucci-Cruise-23_Men_001_Default.jpg",
+      image: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?q=80&w=1974&auto=format&fit=crop",
       link: "/category/men"
     },
     {
       id: "bags",
       name: "Bags",
-      image: "https://media.gucci.com/content/DarkGray_CategoryDoubleCard_Standard_926x1112/1679663725/CategoryDoubleCard_Gucci-Cruise-23_Bags_001_Default.jpg",
+      image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=1935&auto=format&fit=crop",
       link: "/category/bags"
     },
     {
       id: "accessories",
       name: "Accessories",
-      image: "https://media.gucci.com/content/DarkGray_CategoryDoubleCard_Standard_926x1112/1679663723/CategoryDoubleCard_Gucci-Cruise-23_Accessories_001_Default.jpg",
+      image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=1974&auto=format&fit=crop",
       link: "/category/accessories"
     }
   ];

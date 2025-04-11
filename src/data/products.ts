@@ -10,8 +10,8 @@ export const products: Product[] = [
     category: "clothing",
     gender: "women",
     images: [
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1635174003/671642_ZAGKI_3250_001_100_0000_Light.jpg",
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1635174003/671642_ZAGKI_3250_002_100_0000_Light.jpg"
+      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=1936&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?q=80&w=1974&auto=format&fit=crop"
     ],
     colors: ["green", "beige"],
     sizes: ["XS", "S", "M", "L", "XL"],
@@ -27,8 +27,8 @@ export const products: Product[] = [
     category: "bags",
     gender: "women",
     images: [
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1546878603/443496_DTDIT_1000_001_057_0000_Light.jpg",
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1546878603/443496_DTDIT_1000_002_057_0000_Light.jpg"
+      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=1935&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1575032617751-6ddec2089882?q=80&w=1974&auto=format&fit=crop"
     ],
     colors: ["black", "red", "beige"],
     tags: ["bags", "leather", "luxury"],
@@ -43,8 +43,8 @@ export const products: Product[] = [
     category: "shoes",
     gender: "men",
     images: [
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1586363122/643491_17T10_1000_001_100_0000_Light.jpg",
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1586363122/643491_17T10_1000_002_100_0000_Light.jpg"
+      "https://images.unsplash.com/photo-1516478177764-9fe5bd7e9717?q=80&w=2070&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1605812860427-4024433a70fd?q=80&w=1935&auto=format&fit=crop"
     ],
     colors: ["black", "brown"],
     sizes: ["UK 6", "UK 7", "UK 8", "UK 9", "UK 10"],
@@ -60,8 +60,8 @@ export const products: Product[] = [
     category: "clothing",
     gender: "men",
     images: [
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1595876724/627392_XKBDW_4761_001_100_0000_Light.jpg",
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1595876724/627392_XKBDW_4761_002_100_0000_Light.jpg"
+      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=1936&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1576871337622-98d48d1cf531?q=80&w=1974&auto=format&fit=crop"
     ],
     colors: ["multicolor"],
     sizes: ["S", "M", "L", "XL"],
@@ -77,8 +77,8 @@ export const products: Product[] = [
     category: "shoes",
     gender: "unisex",
     images: [
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1561995143/576136_A38G0_9064_001_100_0000_Light.jpg",
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1561995143/576136_A38G0_9064_002_100_0000_Light.jpg"
+      "https://images.unsplash.com/photo-1608231387042-66d1773070a5?q=80&w=1974&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1605812860427-4024433a70fd?q=80&w=1935&auto=format&fit=crop"
     ],
     colors: ["white"],
     sizes: ["UK 3", "UK 4", "UK 5", "UK 6", "UK 7", "UK 8", "UK 9", "UK 10"],
@@ -94,8 +94,8 @@ export const products: Product[] = [
     category: "accessories",
     gender: "unisex",
     images: [
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1631613604/598527_DTD1T_1000_001_100_0000_Light.jpg",
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1631613604/598527_DTD1T_1000_002_100_0000_Light.jpg"
+      "https://images.unsplash.com/photo-1564839514106-ffe00ddb7c18?q=80&w=1974&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1548863227-3af567fc3b27?q=80&w=1974&auto=format&fit=crop"
     ],
     colors: ["black", "red", "pink"],
     tags: ["wallets", "leather", "small leather goods"],
@@ -110,8 +110,8 @@ export const products: Product[] = [
     category: "accessories",
     gender: "unisex",
     images: [
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1600273223/5752204G200_4371_001_100_0000_Light.jpg",
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1600273223/5752204G200_4371_002_100_0000_Light.jpg"
+      "https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?q=80&w=1974&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1623249913048-7d7848fcba78?q=80&w=1974&auto=format&fit=crop"
     ],
     colors: ["navy", "beige"],
     tags: ["scarves", "wool", "winter"],
@@ -126,8 +126,8 @@ export const products: Product[] = [
     category: "bags",
     gender: "women",
     images: [
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1583247603/602204_1DB0G_2535_001_063_0000_Light.jpg",
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1583247603/602204_1DB0G_2535_002_063_0000_Light.jpg"
+      "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?q=80&w=1971&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1591561954557-26941169b49e?q=80&w=1974&auto=format&fit=crop"
     ],
     colors: ["beige", "brown", "black"],
     tags: ["bags", "leather", "luxury"],
@@ -142,8 +142,8 @@ export const products: Product[] = [
     category: "clothing",
     gender: "men",
     images: [
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1598996404/626705_XKBSV_4692_001_100_0000_Light.jpg",
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1598996404/626705_XKBSV_4692_002_100_0000_Light.jpg"
+      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=1936&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1576871337622-98d48d1cf531?q=80&w=1974&auto=format&fit=crop"
     ],
     colors: ["navy", "red"],
     sizes: ["XS", "S", "M", "L", "XL"],
@@ -159,8 +159,8 @@ export const products: Product[] = [
     category: "bags",
     gender: "women",
     images: [
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1616688613/547926_96IWG_8745_001_071_0000_Light.jpg",
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1616688613/547926_96IWG_8745_002_071_0000_Light.jpg"
+      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=1935&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?q=80&w=1971&auto=format&fit=crop"
     ],
     colors: ["beige", "brown"],
     tags: ["bags", "canvas", "crossbody"],
@@ -175,8 +175,8 @@ export const products: Product[] = [
     category: "clothing",
     gender: "men",
     images: [
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1666106704/721342_ZAGJS_4917_001_100_0000_Light.jpg",
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1666106704/721342_ZAGJS_4917_002_100_0000_Light.jpg"
+      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=1936&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?q=80&w=1974&auto=format&fit=crop"
     ],
     colors: ["navy", "cream"],
     sizes: ["S", "M", "L", "XL"],
@@ -192,8 +192,8 @@ export const products: Product[] = [
     category: "clothing",
     gender: "women",
     images: [
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1628777403/655705_ZAEIU_9791_001_100_0000_Light.jpg",
-      "https://media.gucci.com/style/DarkGray_Center_0_0_800x800/1628777403/655705_ZAEIU_9791_002_100_0000_Light.jpg"
+      "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?q=80&w=1974&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1520263115673-610416f52ab6?q=80&w=1934&auto=format&fit=crop"
     ],
     colors: ["multicolor"],
     sizes: ["XS", "S", "M", "L"],
