@@ -37,7 +37,6 @@ const Header = () => {
           <nav className="hidden md:flex items-center space-x-8 mx-8">
             <Link to="/category/women" className="nav-link">Women</Link>
             <Link to="/category/men" className="nav-link">Men</Link>
-            <Link to="/category/accessories" className="nav-link">Accessories</Link>
           </nav>
 
           {/* Actions */}

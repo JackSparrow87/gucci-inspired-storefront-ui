@@ -14,18 +14,6 @@ const FeaturedCategories = () => {
       name: "Men",
       image: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?q=80&w=1974&auto=format&fit=crop",
       link: "/category/men"
-    },
-    {
-      id: "bags",
-      name: "Bags",
-      image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=1935&auto=format&fit=crop",
-      link: "/category/bags"
-    },
-    {
-      id: "accessories",
-      name: "Accessories",
-      image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=1974&auto=format&fit=crop",
-      link: "/category/accessories"
     }
   ];
 
@@ -33,7 +21,7 @@ const FeaturedCategories = () => {
     <section className="container-custom py-16">
       <h2 className="section-title">CATEGORIES</h2>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {categories.map(category => (
           <Link 
             key={category.id}

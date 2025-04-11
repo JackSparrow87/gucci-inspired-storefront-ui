@@ -37,13 +37,6 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
           >
             Men
           </Link>
-          <Link 
-            to="/category/accessories" 
-            className="text-2xl font-serif uppercase tracking-wide py-2 border-b border-gucci-lightGray"
-            onClick={onClose}
-          >
-            Accessories
-          </Link>
           
           <div className="pt-8 space-y-4">
             <Link 
