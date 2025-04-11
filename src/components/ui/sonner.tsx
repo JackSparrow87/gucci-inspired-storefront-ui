@@ -1,14 +1,14 @@
-import { useTheme } from "next-themes"
+
+// For React Router projects, we don't need next-themes
+// Let's adjust this to a simpler implementation
 import { Toaster as Sonner } from "sonner"
 
 type ToasterProps = React.ComponentProps<typeof Sonner>
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = "system" } = useTheme()
-
   return (
     <Sonner
-      theme={theme as ToasterProps["theme"]}
+      theme="system"
       className="toaster group"
       toastOptions={{
         classNames: {
