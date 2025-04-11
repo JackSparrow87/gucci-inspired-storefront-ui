@@ -30,7 +30,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         
         <div className="mt-4 px-1">
           <h3 className="font-medium">{product.name}</h3>
-          <p className="text-gucci-gold font-medium mt-1">${product.price.toLocaleString()}</p>
+          <p className="text-gucci-gold font-medium mt-1">R{product.price.toLocaleString()}</p>
         </div>
       </Link>
       

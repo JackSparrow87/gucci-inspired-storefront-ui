@@ -6,7 +6,7 @@ const Hero = () => {
     <div className="relative h-[90vh] overflow-hidden">
       <div className="absolute inset-0">
         <img 
-          src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop" 
+          src="https://images.unsplash.com/photo-1527181599081-e2f071bc4bca?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
           alt="Riri Fashion"
           className="w-full h-full object-cover object-center"
         />
@@ -29,7 +29,9 @@ const Hero = () => {
             Men
           </Link>
         </div>
+        
       </div>
+      
     </div>
   );
 };

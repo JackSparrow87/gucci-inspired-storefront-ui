@@ -110,7 +110,7 @@ const ProductDetail = () => {
         {/* Product Info */}
         <div className="lg:w-1/2">
           <h1 className="text-3xl font-serif mb-2">{product.name}</h1>
-          <p className="text-xl font-medium text-gucci-gold mb-6">${product.price.toLocaleString()}</p>
+          <p className="text-xl font-medium text-gucci-gold mb-6">R{product.price.toLocaleString()}</p>
           
           <p className="text-gray-600 mb-8">
             {product.description}
@@ -205,7 +205,7 @@ const ProductDetail = () => {
               <AccordionTrigger className="text-base font-medium py-4">Shipping & Returns</AccordionTrigger>
               <AccordionContent>
                 <p className="text-gray-600 mb-4">
-                  Free standard shipping on all orders over $200. Delivery time is typically 3-5 business days.
+                  Free standard shipping on all orders over R600. Delivery time is typically 3-5 business days.
                 </p>
                 <p className="text-gray-600">
                   Free returns within 30 days of delivery. Items must be unworn, undamaged, and in their original packaging.

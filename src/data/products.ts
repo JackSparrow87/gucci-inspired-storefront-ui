@@ -87,22 +87,6 @@ export const products: Product[] = [
     isFeatured: true
   },
   {
-    id: "6",
-    name: "GG Marmont Card Case Wallet",
-    description: "A Gucci card case in matelassé leather with a Chain strap, feature a flap closure with Double G hardware.",
-    price: 450,
-    category: "accessories",
-    gender: "unisex",
-    images: [
-      "https://images.unsplash.com/photo-1564839514106-ffe00ddb7c18?q=80&w=1974&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1548863227-3af567fc3b27?q=80&w=1974&auto=format&fit=crop"
-    ],
-    colors: ["black", "red", "pink"],
-    tags: ["wallets", "leather", "small leather goods"],
-    isNew: true,
-    isFeatured: false
-  },
-  {
     id: "7",
     name: "GG Wool Scarf",
     description: "Wool scarf with the iconic GG motif all over. The scarf is made of a soft wool, perfect for colder weather.",

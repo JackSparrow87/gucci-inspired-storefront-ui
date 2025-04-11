@@ -87,7 +87,7 @@ const CartPage = () => {
                     </p>
                     
                     <div className="mb-3">
-                      <p className="font-medium">${item.product.price.toLocaleString()}</p>
+                      <p className="font-medium">R{item.product.price.toLocaleString()}</p>
                     </div>
                     
                     <div className="flex border border-gray-300 w-28">
@@ -138,7 +138,7 @@ const CartPage = () => {
                 </div>
                 
                 <div className="col-span-2 text-center">
-                  <p className="font-medium">${item.product.price.toLocaleString()}</p>
+                  <p className="font-medium">R{item.product.price.toLocaleString()}</p>
                 </div>
                 
                 <div className="col-span-2 text-center">
@@ -190,7 +190,7 @@ const CartPage = () => {
           <div className="space-y-4 mb-6">
             <div className="flex justify-between">
               <span>Subtotal</span>
-              <span className="font-medium">${subtotal.toLocaleString()}</span>
+              <span className="font-medium">R{subtotal.toLocaleString()}</span>
             </div>
             
             <div className="flex justify-between">
@@ -203,13 +203,13 @@ const CartPage = () => {
             {promoApplied && (
               <div className="flex justify-between text-gucci-red">
                 <span>Discount</span>
-                <span className="font-medium">-${discount.toLocaleString()}</span>
+                <span className="font-medium">-R{discount.toLocaleString()}</span>
               </div>
             )}
             
             <div className="border-t border-gray-300 pt-4 flex justify-between text-lg">
               <span className="font-medium">Total</span>
-              <span className="font-bold">${totalCost.toLocaleString()}</span>
+              <span className="font-bold">R{totalCost.toLocaleString()}</span>
             </div>
           </div>
           

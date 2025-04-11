@@ -36,7 +36,7 @@ const OrderConfirmation = () => {
           </div>
           <div>
             <h3 className="text-sm font-medium uppercase text-gray-500 mb-1">Total Amount</h3>
-            <p className="text-xl font-medium">${totalAmount.toLocaleString()}</p>
+            <p className="text-xl font-medium">R{totalAmount.toLocaleString()}</p>
           </div>
         </div>
       </div>

@@ -193,8 +193,8 @@ const FilterSidebar = ({ filter, setFilter, onFilterChange }: FilterSidebarProps
                 className="mb-6"
               />
               <div className="flex justify-between text-sm">
-                <span>${filter.priceRange?.[0] || 0}</span>
-                <span>${filter.priceRange?.[1] || 5000}</span>
+                <span>R{filter.priceRange?.[0] || 0}</span>
+                <span>R{filter.priceRange?.[1] || 5000}</span>
               </div>
             </div>
           </AccordionContent>

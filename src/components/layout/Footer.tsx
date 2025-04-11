@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="container-custom py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           <div>
-            <h4 className="text-xl font-serif mb-4">LUXIFY</h4>
+            <h4 className="text-xl font-serif mb-4">RIRI</h4>
             <p className="text-sm text-gray-300 mb-4">
               Discover the world of luxury fashion and accessories.
             </p>
@@ -51,7 +51,7 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-gray-800 mt-12 pt-8 text-sm text-gray-400 flex flex-col md:flex-row justify-between">
-          <p>© 2025 LUXIFY. All rights reserved.</p>
+          <p>© 2025 RIRI powered by RandPowerState (Pty) Ltd. All rights reserved.</p>
           <div className="space-x-4 mt-4 md:mt-0">
             <Link to="/terms" className="hover:text-gucci-gold transition-colors">Terms</Link>
             <Link to="/privacy" className="hover:text-gucci-gold transition-colors">Privacy</Link>

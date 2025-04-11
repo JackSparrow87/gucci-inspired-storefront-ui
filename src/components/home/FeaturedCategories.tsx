@@ -6,13 +6,13 @@ const FeaturedCategories = () => {
     {
       id: "women",
       name: "Women",
-      image: "https://images.unsplash.com/photo-1525450824786-227cbef70703?q=80&w=2070&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1527203561188-dae1bc1a417f?q=80&w=2030&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       link: "/category/women"
     },
     {
       id: "men",
       name: "Men",
-      image: "https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?q=80&w=2073&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1688143030645-a84f15553f9f?q=80&w=1972&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       link: "/category/men"
     }
   ];

@@ -1,0 +1,31 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const HeroSection: React.FC = () => {
+  return (
+    <div className="w-full">
+      {/* Hero Section */}
+      <div className="relative h-[90vh] overflow-hidden">
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1586437474999-0fccfae90418?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+            alt="Riri Fashion"
+            className="w-full h-full object-cover object-center"
+          />
+        </div>
+        
+        <div className="absolute inset-0 bg-black bg-opacity-20" />
+        
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-4">
+        
+          <p className="text-lg md:text-xl mb-10 max-w-md font-light tracking-widest uppercase">
+            Elegance in simplicity
+          </p>
+          
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default HeroSection;

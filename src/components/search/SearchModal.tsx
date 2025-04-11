@@ -100,7 +100,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
                   </div>
                   <div className="flex-1">
                     <h3 className="font-medium">{product.name}</h3>
-                    <p className="text-gucci-gold font-medium">${product.price.toLocaleString()}</p>
+                    <p className="text-gucci-gold font-medium">R{product.price.toLocaleString()}</p>
                     <p className="text-sm text-gray-500 capitalize">{product.category}</p>
                   </div>
                 </Link>
