@@ -1,10 +1,36 @@
-import React from 'react';
+
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 const HeroSection: React.FC = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const text = textRef.current;
+
+    if (!section || !text) return;
+
+    const handleScroll = () => {
+      const sectionTop = section.getBoundingClientRect().top;
+      const windowHeight = window.innerHeight;
+      
+      if (sectionTop < windowHeight * 0.75) {
+        text.classList.add('animate-fade-in');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    
+    // Check once on load
+    handleScroll();
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div className="w-full">
-      {/* Hero Section */}
+    <div className="w-full" ref={sectionRef}>
       <div className="relative h-[90vh] overflow-hidden">
         <div className="absolute inset-0">
           <img 
@@ -17,11 +43,12 @@ const HeroSection: React.FC = () => {
         <div className="absolute inset-0 bg-black bg-opacity-20" />
         
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-4">
-        
-          <p className="text-lg md:text-xl mb-10 max-w-md font-light tracking-widest uppercase">
+          <p 
+            ref={textRef}
+            className="text-lg md:text-xl mb-10 max-w-md font-light tracking-widest uppercase opacity-0"
+          >
             Elegance in simplicity
           </p>
-          
         </div>
       </div>
     </div>
