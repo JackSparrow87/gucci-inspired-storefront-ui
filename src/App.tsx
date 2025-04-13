@@ -1,4 +1,5 @@
 
+import React from 'react'; // Explicitly import React
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
@@ -24,34 +25,36 @@ import Profile from "@/pages/Profile";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <BrowserRouter>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <AuthProvider>
-          <CartProvider>
-            <Routes>
-              <Route element={<Layout />}>
-                <Route path="/" element={<Index />} />
-                <Route path="/category/:categoryId" element={<CategoryPage />} />
-                <Route path="/product/:productId" element={<ProductDetail />} />
-                <Route path="/cart" element={<CartPage />} />
-                <Route path="/checkout" element={<CheckoutPage />} />
-                <Route path="/orders/:orderNumber" element={<OrderConfirmation />} />
-                <Route path="/orders" element={<OrderTracking />} />
-                <Route path="/search" element={<SearchResults />} />
-                <Route path="/auth" element={<Auth />} />
-                <Route path="/auth/verify-email" element={<VerifyEmail />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="*" element={<NotFound />} />
-              </Route>
-            </Routes>
-          </CartProvider>
-        </AuthProvider>
-      </TooltipProvider>
-    </BrowserRouter>
-  </QueryClientProvider>
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <TooltipProvider>
+          <AuthProvider>
+            <CartProvider>
+              <Routes>
+                <Route element={<Layout />}>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/category/:categoryId" element={<CategoryPage />} />
+                  <Route path="/product/:productId" element={<ProductDetail />} />
+                  <Route path="/cart" element={<CartPage />} />
+                  <Route path="/checkout" element={<CheckoutPage />} />
+                  <Route path="/orders/:orderNumber" element={<OrderConfirmation />} />
+                  <Route path="/orders" element={<OrderTracking />} />
+                  <Route path="/search" element={<SearchResults />} />
+                  <Route path="/auth" element={<Auth />} />
+                  <Route path="/auth/verify-email" element={<VerifyEmail />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="*" element={<NotFound />} />
+                </Route>
+              </Routes>
+              <Toaster />
+              <Sonner />
+            </CartProvider>
+          </AuthProvider>
+        </TooltipProvider>
+      </BrowserRouter>
+    </QueryClientProvider>
+  </React.StrictMode>
 );
 
 export default App;
