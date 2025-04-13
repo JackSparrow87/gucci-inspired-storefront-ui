@@ -68,9 +68,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const validateEmail = (email: string): boolean => {
+    // Simple email validation check
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const signUp = async (email: string, password: string, userData: { full_name?: string, username?: string }) => {
     try {
       setIsLoading(true);
+      
+      // Validate email before sending to Supabase
+      if (!validateEmail(email)) {
+        throw new Error("Please enter a valid email address");
+      }
+      
       const { error } = await supabase.auth.signUp({ 
         email, 
         password,

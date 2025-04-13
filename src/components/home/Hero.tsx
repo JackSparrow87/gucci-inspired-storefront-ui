@@ -8,23 +8,26 @@ const Hero = () => {
   const buttonsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Initial animations
+    // Initial animations - add classes immediately
     const heading = headingRef.current;
     const subtitle = subtitleRef.current;
     const buttons = buttonsRef.current;
 
     if (heading) {
       heading.classList.add('animate-slide-up');
+      heading.style.opacity = '1'; // Ensure it's visible
       heading.style.animationDelay = '0.3s';
     }
 
     if (subtitle) {
       subtitle.classList.add('animate-slide-up');
+      subtitle.style.opacity = '1'; // Ensure it's visible
       subtitle.style.animationDelay = '0.6s';
     }
 
     if (buttons) {
       buttons.classList.add('animate-slide-up');
+      buttons.style.opacity = '1'; // Ensure it's visible
       buttons.style.animationDelay = '0.9s';
     }
 
@@ -68,19 +71,19 @@ const Hero = () => {
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-4">
         <h1 
           ref={headingRef}
-          className="text-5xl md:text-7xl font-allura mb-6 tracking-wider opacity-0"
+          className="text-5xl md:text-7xl font-allura mb-6 tracking-wider"
         >
           Riri
         </h1>
         <p 
           ref={subtitleRef}
-          className="text-lg md:text-xl mb-10 max-w-md font-light tracking-widest uppercase opacity-0"
+          className="text-lg md:text-xl mb-10 max-w-md font-light tracking-widest uppercase"
         >
           Elegance in simplicity
         </p>
         <div 
           ref={buttonsRef}
-          className="flex space-x-8 opacity-0"
+          className="flex space-x-8"
         >
           <Link 
             to="/category/women" 

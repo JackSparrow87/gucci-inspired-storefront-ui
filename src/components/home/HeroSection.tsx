@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -12,12 +11,18 @@ const HeroSection: React.FC = () => {
 
     if (!section || !text) return;
 
+    // Add animation class immediately instead of waiting for scroll
+    text.classList.add('animate-fade-in');
+
     const handleScroll = () => {
       const sectionTop = section.getBoundingClientRect().top;
       const windowHeight = window.innerHeight;
       
+      // Keep the animation visible when in viewport
       if (sectionTop < windowHeight * 0.75) {
-        text.classList.add('animate-fade-in');
+        if (!text.classList.contains('animate-fade-in')) {
+          text.classList.add('animate-fade-in');
+        }
       }
     };
 
@@ -45,7 +50,7 @@ const HeroSection: React.FC = () => {
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-4">
           <p 
             ref={textRef}
-            className="text-lg md:text-xl mb-10 max-w-md font-light tracking-widest uppercase opacity-0"
+            className="text-lg md:text-xl mb-10 max-w-md font-light tracking-widest uppercase"
           >
             Elegance in simplicity
           </p>
