@@ -7,16 +7,16 @@
 
 @layer base {
   :root {
-    --background: 4 41% 66%; /* Converted from #CC8B86 */
+    --background: 0 0% 100%;
     --foreground: 0 0% 10%;
 
-    --card: 4 41% 66%;
+    --card: 0 0% 100%;
     --card-foreground: 0 0% 10%;
 
-    --popover: 4 41% 66%;
+    --popover: 0 0% 100%;
     --popover-foreground: 0 0% 10%;
 
-    --primary: 4 41% 66%;
+    --primary: 7 41% 66%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 96%;
@@ -25,15 +25,15 @@
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
 
-    --accent: 4 41% 66%;
+    --accent: 7 41% 66%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 354 70% 52%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 4 15% 85%;
-    --input: 4 15% 85%;
-    --ring: 4 41% 66%;
+    --border: 7 15% 85%;
+    --input: 7 15% 85%;
+    --ring: 7 41% 66%;
 
     --radius: 0.3rem;
   }
