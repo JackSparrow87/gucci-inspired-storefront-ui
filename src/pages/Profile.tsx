@@ -8,10 +8,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from '@/components/ui/use-toast';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 type Profile = {
-  username: string;
-  full_name: string;
+  username: string | null;
+  full_name: string | null;
   avatar_url: string | null;
 };
 
@@ -111,6 +112,11 @@ const Profile = () => {
     }
   };
 
+  const getInitials = (name: string | null) => {
+    if (!name) return 'U';
+    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+  };
+
   if (loading) {
     return (
       <div className="w-full min-h-[calc(100vh-10rem)] flex flex-col items-center justify-center p-4">
@@ -123,6 +129,17 @@ const Profile = () => {
     <div className="w-full min-h-[calc(100vh-10rem)] flex flex-col items-center justify-center p-4 bg-[#FDF8F7]">
       <Card className="w-full max-w-md bg-white shadow-md rounded-md overflow-hidden border-oldrose/10">
         <CardHeader>
+          <div className="flex justify-center mb-4">
+            <Avatar className="h-24 w-24">
+              {profile?.avatar_url ? (
+                <AvatarImage src={profile.avatar_url} alt={profile?.full_name || 'User'} />
+              ) : (
+                <AvatarFallback className="bg-oldrose text-white text-xl">
+                  {getInitials(profile?.full_name)}
+                </AvatarFallback>
+              )}
+            </Avatar>
+          </div>
           <CardTitle className="text-2xl text-center font-serif">My Profile</CardTitle>
           <CardDescription className="text-center">Manage your account information</CardDescription>
         </CardHeader>
