@@ -169,7 +169,7 @@ const CartPage = () => {
                   </button>
                   
                   <p className="font-medium">
-                    ${(item.product.price * item.quantity).toLocaleString()}
+                    R{(item.product.price * item.quantity).toLocaleString()}
                   </p>
                 </div>
               </div>
@@ -177,7 +177,7 @@ const CartPage = () => {
           </div>
           
           <div className="mt-8 flex justify-between items-center">
-            <Link to="/" className="text-gucci-black underline hover:text-gucci-gold transition-colors">
+            <Link to="/" className="text-oldrose underline hover:text-oldrose/80 transition-colors">
               Continue Shopping
             </Link>
           </div>
@@ -196,12 +196,12 @@ const CartPage = () => {
             <div className="flex justify-between">
               <span>Shipping</span>
               <span className="font-medium">
-                {shippingCost === 0 ? "Free" : `$${shippingCost.toLocaleString()}`}
+                {shippingCost === 0 ? "Free" : `R${shippingCost.toLocaleString()}`}
               </span>
             </div>
             
             {promoApplied && (
-              <div className="flex justify-between text-gucci-red">
+              <div className="flex justify-between text-oldrose">
                 <span>Discount</span>
                 <span className="font-medium">-R{discount.toLocaleString()}</span>
               </div>
@@ -238,7 +238,7 @@ const CartPage = () => {
             )}
           </form>
           
-          <Button asChild className="w-full bg-gucci-black hover:bg-gucci-darkGray text-white py-6">
+          <Button asChild className="w-full bg-oldrose hover:bg-oldrose/90 text-white py-6">
             <Link to="/checkout">Proceed to Checkout</Link>
           </Button>
           

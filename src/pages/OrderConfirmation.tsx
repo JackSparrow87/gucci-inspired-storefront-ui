@@ -5,7 +5,7 @@ import { CheckCircle } from "lucide-react";
 
 const OrderConfirmation = () => {
   const location = useLocation();
-  const { orderNumber, totalAmount, shippingAddress } = location.state || {};
+  const { orderNumber, totalAmount, shippingAddress, paymentReference } = location.state || {};
   
   // If accessed directly without state, redirect to home
   if (!orderNumber) {
@@ -54,6 +54,14 @@ const OrderConfirmation = () => {
             </p>
           </div>
           
+          <div className="mb-6">
+            <h3 className="font-medium mb-2">Payment Information</h3>
+            <p className="text-gray-600">
+              Method: Payshap<br />
+              Reference: {paymentReference}
+            </p>
+          </div>
+          
           <div>
             <h3 className="font-medium mb-2">Shipping Method</h3>
             <p className="text-gray-600">Standard Shipping (3-5 business days)</p>
@@ -80,7 +88,7 @@ const OrderConfirmation = () => {
         <Button asChild variant="outline">
           <Link to="/orders">View Orders</Link>
         </Button>
-        <Button asChild className="bg-gucci-black hover:bg-gucci-darkGray text-white">
+        <Button asChild className="bg-oldrose hover:bg-oldrose/90 text-white">
           <Link to="/">Continue Shopping</Link>
         </Button>
       </div>

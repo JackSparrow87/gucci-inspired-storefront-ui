@@ -22,7 +22,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
           {product.isNew && (
-            <div className="absolute top-2 right-2 bg-gucci-black text-white px-3 py-1 text-xs uppercase tracking-wider">
+            <div className="absolute top-2 right-2 bg-oldrose text-white px-3 py-1 text-xs uppercase tracking-wider">
               New
             </div>
           )}
@@ -30,14 +30,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
         
         <div className="mt-4 px-1">
           <h3 className="font-medium">{product.name}</h3>
-          <p className="text-gucci-gold font-medium mt-1">R{product.price.toLocaleString()}</p>
+          <p className="text-oldrose font-medium mt-1">R{product.price.toLocaleString()}</p>
         </div>
       </Link>
       
       <div className="mt-3 px-1">
         <Button 
           onClick={() => addToCart(product)} 
-          className="w-full bg-gucci-black hover:bg-gucci-darkGray text-white rounded-none"
+          className="w-full bg-oldrose hover:bg-oldrose/90 text-white rounded-none"
         >
           <ShoppingBag className="h-4 w-4 mr-2" />
           Add to Bag

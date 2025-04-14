@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "@/hooks/useCart";
@@ -13,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "@/components/ui/use-toast";
+import { AlertCircle } from "lucide-react";
 
 const CheckoutPage = () => {
   const { cartItems, subtotal, clearCart } = useCart();
@@ -20,6 +20,7 @@ const CheckoutPage = () => {
   
   const [step, setStep] = useState(1);
   const [sameAddress, setSameAddress] = useState(true);
+  const [paymentReference, setPaymentReference] = useState("");
   
   // Shipping details
   const [shipping, setShipping] = useState({
@@ -29,7 +30,7 @@ const CheckoutPage = () => {
     city: "",
     state: "",
     zipCode: "",
-    country: "United States",
+    country: "South Africa",
     phone: "",
     email: "",
   });
@@ -42,16 +43,14 @@ const CheckoutPage = () => {
     city: "",
     state: "",
     zipCode: "",
-    country: "United States",
+    country: "South Africa",
     phone: "",
   });
   
   // Payment details
   const [payment, setPayment] = useState({
-    cardNumber: "",
-    cardName: "",
-    expiryDate: "",
-    cvv: "",
+    method: "payshap",
+    reference: "",
   });
   
   const shippingCost = subtotal > 200 ? 0 : 20;
@@ -121,11 +120,11 @@ const CheckoutPage = () => {
   const handlePaymentSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Basic validation
-    if (!payment.cardNumber || !payment.cardName || !payment.expiryDate || !payment.cvv) {
+    // Basic validation for payment reference
+    if (!payment.reference) {
       toast({
-        title: "Please complete all fields",
-        description: "All payment details are required",
+        title: "Please enter payment reference",
+        description: "Payment reference is required to confirm your order",
         variant: "destructive",
       });
       return;
@@ -143,7 +142,8 @@ const CheckoutPage = () => {
         state: { 
           orderNumber, 
           totalAmount: totalCost,
-          shippingAddress: shipping
+          shippingAddress: shipping,
+          paymentReference: payment.reference
         } 
       });
     }, 1500);
@@ -202,7 +202,7 @@ const CheckoutPage = () => {
         </div>
         <div className="flex w-full h-1 bg-gray-200 mt-2">
           <div 
-            className="h-full bg-gucci-black transition-all duration-300"
+            className="h-full bg-oldrose transition-all duration-300"
             style={{ width: `${(step / 3) * 100}%` }}
           />
         </div>
@@ -287,11 +287,11 @@ const CheckoutPage = () => {
                       <SelectValue placeholder="Select country" />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="South Africa">South Africa</SelectItem>
                       <SelectItem value="United States">United States</SelectItem>
                       <SelectItem value="Canada">Canada</SelectItem>
                       <SelectItem value="United Kingdom">United Kingdom</SelectItem>
-                      <SelectItem value="France">France</SelectItem>
-                      <SelectItem value="Italy">Italy</SelectItem>
+                      <SelectItem value="Nigeria">Nigeria</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -318,12 +318,12 @@ const CheckoutPage = () => {
               </div>
               
               <div className="flex justify-between mt-8">
-                <Link to="/cart" className="text-gucci-black underline hover:text-gucci-gold transition-colors">
+                <Link to="/cart" className="text-oldrose underline hover:text-oldrose/80 transition-colors">
                   Return to Cart
                 </Link>
                 <Button 
                   type="submit" 
-                  className="bg-gucci-black hover:bg-gucci-darkGray text-white"
+                  className="bg-oldrose hover:bg-oldrose/90 text-white"
                 >
                   Continue to Billing
                 </Button>
@@ -424,11 +424,11 @@ const CheckoutPage = () => {
                         <SelectValue placeholder="Select country" />
                       </SelectTrigger>
                       <SelectContent>
+                        <SelectItem value="South Africa">South Africa</SelectItem>
                         <SelectItem value="United States">United States</SelectItem>
                         <SelectItem value="Canada">Canada</SelectItem>
                         <SelectItem value="United Kingdom">United Kingdom</SelectItem>
-                        <SelectItem value="France">France</SelectItem>
-                        <SelectItem value="Italy">Italy</SelectItem>
+                        <SelectItem value="Nigeria">Nigeria</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -455,7 +455,7 @@ const CheckoutPage = () => {
                 </Button>
                 <Button 
                   type="submit" 
-                  className="bg-gucci-black hover:bg-gucci-darkGray text-white"
+                  className="bg-oldrose hover:bg-oldrose/90 text-white"
                 >
                   Continue to Payment
                 </Button>
@@ -468,51 +468,43 @@ const CheckoutPage = () => {
             <form onSubmit={handlePaymentSubmit}>
               <h2 className="text-xl font-medium mb-6">Payment Information</h2>
               
+              <div className="bg-yellow-50 border border-yellow-300 p-6 mb-8 rounded-md">
+                <div className="flex items-start gap-3">
+                  <AlertCircle className="h-5 w-5 text-yellow-700 mt-0.5" />
+                  <div>
+                    <h3 className="font-medium text-yellow-800 mb-2">Payment Instructions</h3>
+                    <p className="text-yellow-700 mb-4">
+                      Please make a payment to the following Payshap account:
+                    </p>
+                    <div className="bg-white p-4 rounded-md mb-4">
+                      <p className="font-medium mb-1">Payshap Account Details:</p>
+                      <ul className="space-y-1 text-gray-700">
+                        <li><span className="font-medium">ID:</span> 0614247711</li>
+                        <li><span className="font-medium">Name:</span> Ms. Reneilwe Chakala</li>
+                        <li><span className="font-medium">Reference:</span> Your Order #{Math.floor(1000 + Math.random() * 9000)}</li>
+                      </ul>
+                    </div>
+                    <p className="text-yellow-700 text-sm mb-2">
+                      After making the payment, please enter your payment reference below to confirm your order.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               <div className="space-y-6 mb-6">
                 <div>
-                  <label className="block text-sm font-medium mb-2">Card Number *</label>
+                  <label className="block text-sm font-medium mb-2">Payment Reference *</label>
                   <Input
                     type="text"
-                    name="cardNumber"
-                    value={payment.cardNumber}
+                    name="reference"
+                    value={payment.reference}
                     onChange={handlePaymentChange}
-                    placeholder="1234 5678 9012 3456"
+                    placeholder="Enter the reference used for your payment"
                     required
                   />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Name on Card *</label>
-                  <Input
-                    type="text"
-                    name="cardName"
-                    value={payment.cardName}
-                    onChange={handlePaymentChange}
-                    required
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Expiry Date *</label>
-                    <Input
-                      type="text"
-                      name="expiryDate"
-                      value={payment.expiryDate}
-                      onChange={handlePaymentChange}
-                      placeholder="MM/YY"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">CVV *</label>
-                    <Input
-                      type="text"
-                      name="cvv"
-                      value={payment.cvv}
-                      onChange={handlePaymentChange}
-                      placeholder="123"
-                      required
-                    />
-                  </div>
+                  <p className="text-sm text-gray-500 mt-1">
+                    This helps us match your payment to your order
+                  </p>
                 </div>
               </div>
               
@@ -526,7 +518,7 @@ const CheckoutPage = () => {
                 </Button>
                 <Button 
                   type="submit" 
-                  className="bg-gucci-black hover:bg-gucci-darkGray text-white"
+                  className="bg-oldrose hover:bg-oldrose/90 text-white"
                 >
                   Place Order
                 </Button>
@@ -538,9 +530,9 @@ const CheckoutPage = () => {
           {step === 4 && (
             <div className="text-center py-12">
               <h2 className="text-xl font-medium mb-4">Processing Your Order</h2>
-              <p className="text-gray-600 mb-8">Please wait while we process your payment...</p>
+              <p className="text-gray-600 mb-8">Please wait while we verify your payment...</p>
               <div className="flex justify-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gucci-gold"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-oldrose"></div>
               </div>
             </div>
           )}
@@ -563,7 +555,7 @@ const CheckoutPage = () => {
                 <div className="flex-1">
                   <p className="font-medium">{item.product.name}</p>
                   <p className="text-gray-500 text-sm">Qty: {item.quantity}</p>
-                  <p>${(item.product.price * item.quantity).toLocaleString()}</p>
+                  <p>R{(item.product.price * item.quantity).toLocaleString()}</p>
                 </div>
               </div>
             ))}
@@ -572,24 +564,24 @@ const CheckoutPage = () => {
           <div className="border-t border-gray-200 pt-4 space-y-4">
             <div className="flex justify-between">
               <span>Subtotal</span>
-              <span className="font-medium">${subtotal.toLocaleString()}</span>
+              <span className="font-medium">R{subtotal.toLocaleString()}</span>
             </div>
             
             <div className="flex justify-between">
               <span>Shipping</span>
               <span className="font-medium">
-                {shippingCost === 0 ? "Free" : `$${shippingCost.toLocaleString()}`}
+                {shippingCost === 0 ? "Free" : `R${shippingCost.toLocaleString()}`}
               </span>
             </div>
             
             <div className="flex justify-between">
               <span>Tax</span>
-              <span className="font-medium">${taxCost.toLocaleString()}</span>
+              <span className="font-medium">R{taxCost.toLocaleString()}</span>
             </div>
             
             <div className="border-t border-gray-300 pt-4 flex justify-between text-lg">
               <span className="font-medium">Total</span>
-              <span className="font-bold">${totalCost.toLocaleString()}</span>
+              <span className="font-bold">R{totalCost.toLocaleString()}</span>
             </div>
           </div>
         </div>
