@@ -132,13 +132,11 @@ const CheckoutPage = () => {
     
     // Simulate order processing
     setTimeout(() => {
-      clearCart();
-      
       // Generate a random order number
       const orderNumber = Math.floor(100000000 + Math.random() * 900000000).toString();
       
       // Navigate to order confirmation
-      navigate(`/orders/${orderNumber}`, { 
+      navigate("/orders/confirmation", { 
         state: { 
           orderNumber, 
           totalAmount: totalCost,
@@ -146,6 +144,9 @@ const CheckoutPage = () => {
           paymentReference: payment.reference
         } 
       });
+      
+      // Clear cart after successful order placement
+      clearCart();
     }, 1500);
     
     // Show loading state
