@@ -1,7 +1,7 @@
 
 import { useLocation, Navigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, FileDown } from "lucide-react";
 
 const OrderConfirmation = () => {
   const location = useLocation();
@@ -86,7 +86,13 @@ const OrderConfirmation = () => {
       
       <div className="flex flex-col sm:flex-row justify-center gap-4">
         <Button asChild variant="outline">
-          <Link to="/orders">View Orders</Link>
+          <Link to="/orders">Track Order</Link>
+        </Button>
+        <Button asChild variant="outline">
+          <Link to={`/orders/${orderNumber}`} className="flex items-center">
+            <FileDown className="mr-2 h-4 w-4" />
+            View Receipt
+          </Link>
         </Button>
         <Button asChild className="bg-oldrose hover:bg-oldrose/90 text-white">
           <Link to="/">Continue Shopping</Link>

@@ -7,10 +7,10 @@ import { toast } from "@/components/ui/use-toast";
 import { 
   PackageOpen, 
   Truck, 
-  PackageCheck, 
-  Package, 
   HomeIcon, 
-  ClipboardCheck 
+  ClipboardCheck,
+  FileDown,
+  ExternalLink 
 } from "lucide-react";
 
 const mockOrders = [
@@ -94,10 +94,6 @@ const OrderTracking = () => {
       { label: "Delivered", icon: HomeIcon, completed: orderData.status === "delivered" }
     ];
     
-    const currentStep = orderData.status === "processing" ? 1 : 
-                      orderData.status === "shipped" ? 2 : 
-                      orderData.status === "delivered" ? 3 : 0;
-    
     return (
       <div className="py-8">
         <div className="relative">
@@ -109,7 +105,7 @@ const OrderTracking = () => {
             {steps.map((step, index) => (
               <div key={index} className="flex flex-col items-center">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                  step.completed ? 'bg-gucci-gold text-white' : 'bg-gray-200 text-gray-400'
+                  step.completed ? 'bg-oldrose text-white' : 'bg-gray-200 text-gray-400'
                 }`}>
                   <step.icon className="h-5 w-5" />
                 </div>
@@ -122,7 +118,20 @@ const OrderTracking = () => {
         </div>
         
         <div className="mt-10">
-          <h3 className="text-lg font-medium mb-4">Order Details</h3>
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-medium">Order Details</h3>
+            <Button 
+              asChild
+              variant="outline"
+              size="sm"
+              className="text-oldrose border-oldrose hover:bg-oldrose/10"
+            >
+              <Link to={`/orders/${orderData.orderNumber}`}>
+                View Complete Details
+                <ExternalLink className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
           
           <div className="space-y-4">
             <div className="flex justify-between border-b border-gray-200 pb-3">
@@ -175,9 +184,21 @@ const OrderTracking = () => {
             
             <div className="flex justify-between">
               <span className="text-gray-600">Total:</span>
-              <span className="font-medium">${orderData.total.toLocaleString()}</span>
+              <span className="font-medium">R{orderData.total.toLocaleString()}</span>
             </div>
           </div>
+        </div>
+        
+        <div className="mt-8 flex justify-center">
+          <Button 
+            asChild
+            className="bg-oldrose hover:bg-oldrose/90 text-white"
+          >
+            <Link to={`/orders/${orderData.orderNumber}`}>
+              <FileDown className="mr-2 h-4 w-4" />
+              View Receipt
+            </Link>
+          </Button>
         </div>
       </div>
     );
@@ -219,7 +240,7 @@ const OrderTracking = () => {
             <div className="pt-4">
               <Button 
                 type="submit" 
-                className="w-full bg-gucci-black hover:bg-gucci-darkGray text-white"
+                className="w-full bg-oldrose hover:bg-oldrose/90 text-white"
                 disabled={isLoading}
               >
                 {isLoading ? "Searching..." : "Track Order"}

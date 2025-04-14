@@ -15,7 +15,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div className="group">
       <Link to={`/product/${product.id}`} className="block relative">
-        <div className="aspect-product overflow-hidden bg-gucci-lightGray">
+        <div className="aspect-product overflow-hidden bg-gray-100">
           <img
             src={product.images[0]}
             alt={product.name}
