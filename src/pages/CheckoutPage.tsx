@@ -1,6 +1,8 @@
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "@/hooks/useCart";
+import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { 
@@ -13,9 +15,11 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "@/components/ui/use-toast";
 import { AlertCircle } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const CheckoutPage = () => {
   const { cartItems, subtotal, clearCart } = useCart();
+  const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   
   const [step, setStep] = useState(1);
@@ -117,7 +121,77 @@ const CheckoutPage = () => {
     window.scrollTo(0, 0);
   };
   
-  const handlePaymentSubmit = (e: React.FormEvent) => {
+  const saveOrderToDatabase = async (orderNumber: string) => {
+    if (!isAuthenticated || !user) {
+      console.log("User not authenticated, order will not be saved to database");
+      return { success: true, orderId: null };
+    }
+    
+    try {
+      // Insert the order
+      const { data: orderData, error: orderError } = await supabase
+        .from('orders')
+        .insert({
+          user_id: user.id,
+          order_number: orderNumber,
+          total_amount: totalCost,
+          payment_reference: payment.reference,
+          status: 'pending'
+        })
+        .select('id')
+        .single();
+      
+      if (orderError) throw orderError;
+      
+      const orderId = orderData.id;
+      
+      // Insert shipping address
+      const { error: shippingError } = await supabase
+        .from('shipping_addresses')
+        .insert({
+          order_id: orderId,
+          first_name: shipping.firstName,
+          last_name: shipping.lastName,
+          address: shipping.address,
+          city: shipping.city,
+          state: shipping.state,
+          zip_code: shipping.zipCode,
+          country: shipping.country,
+          phone: shipping.phone,
+          email: shipping.email
+        });
+      
+      if (shippingError) throw shippingError;
+      
+      // Insert order items
+      const orderItems = cartItems.map(item => ({
+        order_id: orderId,
+        product_id: item.product.id,
+        product_name: item.product.name,
+        product_price: item.product.price,
+        quantity: item.quantity
+      }));
+      
+      const { error: itemsError } = await supabase
+        .from('order_items')
+        .insert(orderItems);
+      
+      if (itemsError) throw itemsError;
+      
+      return { success: true, orderId };
+    } catch (error: any) {
+      console.error("Error saving order:", error);
+      toast({
+        title: "Error saving order",
+        description: error.message || "There was an error saving your order. Please try again.",
+        variant: "destructive"
+      });
+      
+      return { success: false, orderId: null };
+    }
+  };
+  
+  const handlePaymentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Basic validation for payment reference
@@ -130,27 +204,47 @@ const CheckoutPage = () => {
       return;
     }
     
-    // Simulate order processing
-    setTimeout(() => {
-      // Generate a random order number
-      const orderNumber = Math.floor(100000000 + Math.random() * 900000000).toString();
-      
-      // Navigate to order confirmation
-      navigate("/orders/confirmation", { 
-        state: { 
-          orderNumber, 
-          totalAmount: totalCost,
-          shippingAddress: shipping,
-          paymentReference: payment.reference
-        } 
-      });
-      
-      // Clear cart after successful order placement
-      clearCart();
-    }, 1500);
-    
     // Show loading state
     setStep(4);
+    
+    // Generate a random order number
+    const orderNumber = Math.floor(100000000 + Math.random() * 900000000).toString();
+    
+    try {
+      // Save order to database
+      const { success } = await saveOrderToDatabase(orderNumber);
+      
+      if (success) {
+        // Navigate to order confirmation
+        navigate("/orders/confirmation", { 
+          state: { 
+            orderNumber, 
+            totalAmount: totalCost,
+            shippingAddress: shipping,
+            paymentReference: payment.reference
+          } 
+        });
+        
+        // Clear cart after successful order placement
+        clearCart();
+      } else {
+        // If database save failed, go back to payment step
+        setStep(3);
+        toast({
+          title: "Order processing failed",
+          description: "There was an error processing your order. Please try again.",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      console.error("Order processing error:", error);
+      setStep(3);
+      toast({
+        title: "Order processing failed",
+        description: "There was an error processing your order. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
   
   // If cart is empty, redirect to cart page
@@ -162,6 +256,37 @@ const CheckoutPage = () => {
         <Link to="/" className="btn-primary">
           Continue Shopping
         </Link>
+      </div>
+    );
+  }
+  
+  // If user is not authenticated, show login prompt
+  if (!isAuthenticated && step === 1) {
+    return (
+      <div className="container-custom py-16 text-center">
+        <h1 className="text-3xl font-serif mb-6">Checkout</h1>
+        <div className="bg-yellow-50 border border-yellow-200 p-6 max-w-md mx-auto mb-8">
+          <AlertCircle className="h-8 w-8 text-yellow-600 mx-auto mb-4" />
+          <h2 className="text-xl font-medium mb-2">Please Sign In</h2>
+          <p className="text-gray-600 mb-6">
+            You need to be signed in to complete your purchase and track your orders.
+          </p>
+          <div className="flex flex-col gap-4">
+            <Button 
+              asChild
+              className="bg-oldrose hover:bg-oldrose/90 text-white"
+            >
+              <Link to="/auth?redirect=/checkout">Sign In</Link>
+            </Button>
+            <Button 
+              variant="outline"
+              onClick={() => setStep(1)}
+              className="border-oldrose text-oldrose hover:bg-oldrose/10"
+            >
+              Continue as Guest
+            </Button>
+          </div>
+        </div>
       </div>
     );
   }

@@ -1,56 +1,95 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 import { 
   PackageOpen, 
   Truck, 
   HomeIcon, 
   ClipboardCheck,
   FileDown,
-  ExternalLink 
+  ExternalLink,
+  Loader2
 } from "lucide-react";
 
-const mockOrders = [
-  {
-    orderNumber: "123456789",
-    email: "user@example.com",
-    status: "processing",
-    date: "2025-03-15",
-    items: 3,
-    total: 1250,
-  },
-  {
-    orderNumber: "987654321",
-    email: "user@example.com",
-    status: "shipped",
-    date: "2025-03-01",
-    trackingNumber: "TN7891234567",
-    carrier: "FedEx",
-    estimatedDelivery: "2025-03-20",
-    items: 2,
-    total: 850,
-  },
-  {
-    orderNumber: "456789123",
-    email: "user@example.com",
-    status: "delivered",
-    date: "2025-02-15",
-    deliveryDate: "2025-02-19",
-    items: 1,
-    total: 650,
-  }
-];
+interface OrderData {
+  id: string;
+  orderNumber: string;
+  email?: string;
+  status: 'pending' | 'processing' | 'shipped' | 'delivered';
+  date: string;
+  items: number;
+  total: number;
+  trackingNumber?: string;
+  carrier?: string;
+  estimatedDelivery?: string;
+  deliveryDate?: string;
+}
 
 const OrderTracking = () => {
+  const { user, isAuthenticated } = useAuth();
   const [orderNumber, setOrderNumber] = useState("");
   const [email, setEmail] = useState("");
-  const [orderData, setOrderData] = useState<typeof mockOrders[0] | null>(null);
+  const [orderData, setOrderData] = useState<OrderData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [userOrders, setUserOrders] = useState<OrderData[]>([]);
+  const [loadingUserOrders, setLoadingUserOrders] = useState(false);
   
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    const fetchUserOrders = async () => {
+      if (!isAuthenticated || !user) return;
+      
+      setLoadingUserOrders(true);
+      
+      try {
+        const { data, error } = await supabase
+          .from('orders')
+          .select(`
+            id,
+            order_number,
+            status,
+            total_amount,
+            created_at,
+            shipping_addresses(email),
+            order_items(id)
+          `)
+          .eq('user_id', user.id)
+          .order('created_at', { ascending: false });
+        
+        if (error) throw error;
+        
+        if (data) {
+          const formattedOrders: OrderData[] = data.map(order => ({
+            id: order.id,
+            orderNumber: order.order_number,
+            email: order.shipping_addresses?.[0]?.email,
+            status: (order.status as 'pending' | 'processing' | 'shipped' | 'delivered') || 'pending',
+            date: new Date(order.created_at).toISOString().split('T')[0],
+            items: order.order_items?.length || 0,
+            total: Number(order.total_amount)
+          }));
+          
+          setUserOrders(formattedOrders);
+        }
+      } catch (error) {
+        console.error('Error fetching orders:', error);
+        toast({
+          title: 'Failed to load orders',
+          description: 'There was a problem loading your orders. Please try again later.',
+          variant: 'destructive'
+        });
+      } finally {
+        setLoadingUserOrders(false);
+      }
+    };
+    
+    fetchUserOrders();
+  }, [isAuthenticated, user]);
+  
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!orderNumber || !email) {
@@ -64,24 +103,97 @@ const OrderTracking = () => {
     
     setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      const foundOrder = mockOrders.find(order => 
-        order.orderNumber === orderNumber && order.email === email
-      );
+    try {
+      const { data, error } = await supabase
+        .from('orders')
+        .select(`
+          id,
+          order_number,
+          status,
+          total_amount,
+          created_at,
+          shipping_addresses!inner(email),
+          order_items(id)
+        `)
+        .eq('order_number', orderNumber)
+        .eq('shipping_addresses.email', email)
+        .single();
       
-      if (foundOrder) {
-        setOrderData(foundOrder);
-      } else {
-        toast({
-          title: "Order not found",
-          description: "We couldn't find an order with that number and email combination",
-          variant: "destructive",
+      if (error) {
+        if (error.code === 'PGRST116') {
+          const mockOrder = getMockOrderByNumber(orderNumber);
+          if (mockOrder && mockOrder.email === email) {
+            setOrderData(mockOrder);
+          } else {
+            toast({
+              title: "Order not found",
+              description: "We couldn't find an order with that number and email combination",
+              variant: "destructive",
+            });
+            setOrderData(null);
+          }
+        } else {
+          throw error;
+        }
+      } else if (data) {
+        setOrderData({
+          id: data.id,
+          orderNumber: data.order_number,
+          email: data.shipping_addresses[0].email,
+          status: (data.status as 'pending' | 'processing' | 'shipped' | 'delivered') || 'pending',
+          date: new Date(data.created_at).toISOString().split('T')[0],
+          items: data.order_items.length,
+          total: Number(data.total_amount)
         });
       }
-      
+    } catch (error) {
+      console.error('Error fetching order:', error);
+      toast({
+        title: 'Error retrieving order',
+        description: 'There was a problem retrieving your order details. Please try again later.',
+        variant: 'destructive'
+      });
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
+  };
+  
+  const getMockOrderByNumber = (number: string): OrderData | null => {
+    const mockOrders = [
+      {
+        id: "mock-123456789",
+        orderNumber: "123456789",
+        email: "user@example.com",
+        status: "processing" as const,
+        date: "2025-03-15",
+        items: 3,
+        total: 1250,
+      },
+      {
+        id: "mock-987654321",
+        orderNumber: "987654321",
+        email: "user@example.com",
+        status: "shipped" as const,
+        date: "2025-03-01",
+        trackingNumber: "TN7891234567",
+        carrier: "FedEx",
+        estimatedDelivery: "2025-03-20",
+        items: 2,
+        total: 850,
+      },
+      {
+        id: "mock-456789123",
+        orderNumber: "456789123",
+        email: "user@example.com",
+        status: "delivered" as const,
+        date: "2025-02-15",
+        deliveryDate: "2025-02-19",
+        items: 1,
+        total: 650,
+      }
+    ];
+    
+    return mockOrders.find(order => order.orderNumber === number) || null;
   };
   
   const renderOrderStatus = () => {
@@ -204,12 +316,79 @@ const OrderTracking = () => {
     );
   };
   
+  const renderUserOrders = () => {
+    if (loadingUserOrders) {
+      return (
+        <div className="text-center py-8">
+          <Loader2 className="h-8 w-8 animate-spin mx-auto text-oldrose" />
+          <p className="mt-2 text-gray-600">Loading your orders...</p>
+        </div>
+      );
+    }
+    
+    if (userOrders.length === 0) {
+      return (
+        <div className="text-center py-8 border border-dashed border-gray-300 rounded-md">
+          <p className="text-gray-600">You haven't placed any orders yet.</p>
+          <Button asChild className="mt-4 bg-oldrose hover:bg-oldrose/90 text-white">
+            <Link to="/">Start Shopping</Link>
+          </Button>
+        </div>
+      );
+    }
+    
+    return (
+      <div className="mt-6 space-y-6">
+        <h2 className="text-xl font-medium">Your Orders</h2>
+        
+        <div className="space-y-4">
+          {userOrders.map((order) => (
+            <div 
+              key={order.id} 
+              className="border border-gray-200 p-4 hover:border-oldrose transition-colors"
+            >
+              <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+                <div>
+                  <p className="font-medium">Order #{order.orderNumber}</p>
+                  <p className="text-sm text-gray-600">
+                    {new Date(order.date).toLocaleDateString()} • 
+                    <span className="ml-1 capitalize">{order.status}</span>
+                  </p>
+                </div>
+                
+                <div className="flex items-center gap-3">
+                  <div className="text-right">
+                    <p className="text-sm text-gray-600">{order.items} {order.items === 1 ? 'item' : 'items'}</p>
+                    <p className="font-medium">R{order.total.toLocaleString()}</p>
+                  </div>
+                  
+                  <Button 
+                    asChild 
+                    variant="outline" 
+                    size="sm"
+                    className="ml-4 whitespace-nowrap"
+                  >
+                    <Link to={`/orders/${order.orderNumber}`}>
+                      View Details
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+  
   return (
     <div className="container-custom py-16 max-w-3xl mx-auto">
       <h1 className="text-3xl font-serif text-center mb-8">Order Tracking</h1>
       
+      {isAuthenticated && renderUserOrders()}
+      
       {!orderData ? (
-        <div className="bg-gray-50 p-8">
+        <div className="bg-gray-50 p-8 mt-10">
           <p className="text-center mb-6 text-gray-600">
             Enter your order number and email address to track your order
           </p>
@@ -243,7 +422,12 @@ const OrderTracking = () => {
                 className="w-full bg-oldrose hover:bg-oldrose/90 text-white"
                 disabled={isLoading}
               >
-                {isLoading ? "Searching..." : "Track Order"}
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Searching...
+                  </>
+                ) : "Track Order"}
               </Button>
             </div>
           </form>
@@ -260,7 +444,7 @@ const OrderTracking = () => {
           </div>
         </div>
       ) : (
-        <div className="bg-gray-50 p-8">
+        <div className="bg-gray-50 p-8 mt-6">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-xl font-medium">Tracking Information</h2>
             <Button 
